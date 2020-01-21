@@ -1,4 +1,4 @@
 # numerics-for-datascience
-Coursework in Numerics for Data Science course 
+Coursework in Numerics for Data Science-course
 
-Some basic numerical algorithms in matrix operations, clustering and other data-intensive operations.
+Basic numerical algorithms for matrix operations, clustering and other data-intensive methods
