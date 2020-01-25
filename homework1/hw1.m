@@ -64,7 +64,7 @@ W = load_mat_hw1(1000,100);
 [m n] = size(W);
 Q = []; R = []; A = W; p = min(m,n); 
 
-k = 1;
+k = 0;
 
 while norm(A) > 1e-10
     [~, i] = max(vecnorm(A));
@@ -195,7 +195,7 @@ end
 [U_hat, S, V] = svd(R);
 U = Q*U_hat;
 
-%%
+%% computing b1
 
 u = U(:,1);
 v = V(:,1);
@@ -218,7 +218,7 @@ imfloat = double(test_frame);
 n1 = size(imfloat,1); n2 = size(imfloat,2); n3 = 3;
 n = n1*n2*n3;
 
-A = zeros(n,56);
+A = zeros(n,56); %56 is the number of frames
 
 for k = 1:56
     filename = sprintf("roundabout_snapshots_%04d.png",k);
