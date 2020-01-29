@@ -172,7 +172,7 @@ for k = 1:56
     A(:,k) = v;
 end
 
-
+tic
 % Start of SVD approx. 
 W = A; 
 
@@ -180,7 +180,6 @@ W = A;
 Q = []; R = []; A = W; p = min(m,n); 
 
 A_error = [];
-
 
 for k = 0:10
     [M, i] = max(vecnorm(A));
@@ -194,7 +193,7 @@ end
 
 [U_hat, S, V] = svd(R);
 U = Q*U_hat;
-
+toc
 %% computing b1
 
 u = U(:,1);
@@ -233,15 +232,17 @@ for k = 1:56
     A(:,k) = v;
 end
 
-k = 1; p = 5; 
+tic
+k = 1; p = 4; 
 G = random('normal',0,1,[56,k+p]);
 
 Y = A*G; Q = orth(Y);
 B = Q'*A;
 [U_hat, D, V] = svd(B);
 U = Q*U_hat;
+toc
 
-
+% Computing b1 (again)
 u = U(:,1);
 v = V(:,1);
 d = D(1,1);
