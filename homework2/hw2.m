@@ -111,7 +111,7 @@ Dist = dist(A,A'); % distance matrix
 
 % Constructing the weight matrix of an epsilon-neighborhood graph from the distance matrix.
 W = ones(size(Dist));
-W(Dist > ee) = 0; % Set too far away to
+W(Dist > ee) = 0; % Set too far away to be connected
 W(Dist == 0) = 0;  % Avoid an edge to itself
 
 
@@ -164,6 +164,24 @@ Dist = pdist2(timeseries, timeseries);
 Dist(102,280)
 Dist(102,10)
 Dist(280,10)
+
+%% Part 5c 
+clear all; close all; clc
+load('bengali_cleanup.mat');
+
+k = 3
+
+Dist = pdist2(timeseries, timeseries);
+W = ones(size(Dist));
+W(Dist == 0) = 0;  % Avoid an edge to itself
+
+% Finds k closest neighbours 
+[D,I] = pdist2(timeseries,timeseries,'euclidean','Smallest',k+1); 
+D = D(2:k+1,:);
+I = I(2:k+1,:);
+
+
+
 
 
 
