@@ -82,7 +82,7 @@ plot(z,'o','MarkerFaceColor','k'); % Plot all nodes
 hold on;
 
 for i=1:size(W,1)
-   for j=1:size(W,1);
+   for j=1:size(W,1)
        if (W(i,j)>0)
             plot([z(i),z(j)],'k');   % Plot edges
        end
@@ -132,7 +132,7 @@ plot(z,'o','MarkerFaceColor','k'); % Plot all nodes
 hold on;
 
 for i=1:size(W,1)
-   for j=1:size(W,1);
+   for j=1:size(W,1)
        if (W(i,j)>0)
             plot([z(i),z(j)],'k');   % Plot edges
        end
@@ -169,20 +169,34 @@ Dist(280,10)
 clear all; close all; clc
 load('bengali_cleanup.mat');
 
-k = 3
+k = 3;
 
 Dist = pdist2(timeseries, timeseries);
-W = ones(size(Dist));
-W(Dist == 0) = 0;  % Avoid an edge to itself
+W = zeros(size(Dist));
+
 
 % Finds k closest neighbours 
 [D,I] = pdist2(timeseries,timeseries,'euclidean','Smallest',k+1); 
 D = D(2:k+1,:);
 I = I(2:k+1,:);
 
+% for i = 1:937
+%     W(i,I(:,i)) = 1;
+%     W(I(:,i),i) = 1;
+% end
 
+% Loop to find weight matrix, kNN (version: and) 
+for i = 1:length(x_coords)
+    temp = I == i;
+    [m,n] = find(temp);
+    for elem = n
+        if any(ismember(I(:,i),n)) == 1
+            W(i,n) = 1;
+            W(n,i) = 1;
+        end
+    end
+end
 
-
-
+clf; plot(graph(W));
 
 
