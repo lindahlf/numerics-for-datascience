@@ -199,7 +199,19 @@ end
 %     end
 % end
 
-%clf; plot(graph(W));
+% clf; plot(graph(W));
+
+
+k = 7; % number of clusters
+
+L = Dist - W;
+[V, Deig] = eig(L);
+U = V(:,k);
+idx = kmeans(U,k);
+% TODO: Need vector of index values 
+
+
+
 
 
 
