@@ -166,6 +166,7 @@ Dist(102,10)
 Dist(280,10)
 
 %% Part 5c 
+% k-nearest neighbours 
 clear all; close all; clc
 load('bengali_cleanup.mat');
 
@@ -180,23 +181,26 @@ W = zeros(size(Dist));
 D = D(2:k+1,:);
 I = I(2:k+1,:);
 
-% for i = 1:937
-%     W(i,I(:,i)) = 1;
-%     W(I(:,i),i) = 1;
-% end
-
-% Loop to find weight matrix, kNN (version: and) 
-for i = 1:length(x_coords)
-    temp = I == i;
-    [m,n] = find(temp);
-    for elem = n
-        if any(ismember(I(:,i),n)) == 1
-            W(i,n) = 1;
-            W(n,i) = 1;
-        end
-    end
+% kNN (version: or)
+for i = 1:937
+    W(i,I(:,i)) = 1;
+    W(I(:,i),i) = 1;
 end
 
-clf; plot(graph(W));
+% Loop to find weight matrix, kNN (version: and) 
+% for i = 1:length(x_coords)
+%     temp = I == i;
+%     [m,n] = find(temp);
+%     for elem = n
+%         if any(ismember(I(:,i),n)) == 1
+%             W(i,n) = 1;
+%             W(n,i) = 1;
+%         end
+%     end
+% end
+
+%clf; plot(graph(W));
+
+
 
 
