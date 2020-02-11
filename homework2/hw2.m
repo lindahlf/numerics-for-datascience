@@ -170,16 +170,16 @@ Dist(280,10)
 clear all; close all; clc
 load('bengali_cleanup.mat');
 
-k = 3;
+knear = 2;
 
 Dist = pdist2(timeseries, timeseries);
 W = zeros(size(Dist));
 
 
 % Finds k closest neighbours 
-[D,I] = pdist2(timeseries,timeseries,'euclidean','Smallest',k+1); 
-D = D(2:k+1,:);
-I = I(2:k+1,:);
+[D,I] = pdist2(timeseries,timeseries,'euclidean','Smallest',knear+1); 
+D = D(2:knear+1,:);
+I = I(2:knear+1,:);
 
 % kNN (version: or)
 for i = 1:937
@@ -199,20 +199,47 @@ end
 %     end
 % end
 
-% clf; plot(graph(W));
+clf; plot(graph(W));
 
 
 k = 7; % number of clusters
 
-L = Dist - W;
+% Constructing the degree matrix
+Deg = zeros(size(Dist,1));
+
+for i=1:size(Dist,1)
+    Deg(i,i)=sum(W(i,:));
+end
+
+
+L = Deg - W;
 [V, Deig] = eig(L);
-U = V(:,k);
+U = V(:,1:k);
 idx = kmeans(U,k);
 % TODO: Need vector of index values 
 
+A = imread('bengali_map.png');
 
 
+% Loop to generate subplot 
+% for i = 1:k
+%     jv = find(idx==i);
+%     subplot(4,2,i)
+%     imshow(A); hold on;
+%     plot(y_coords(jv), x_coords(jv),'.') % Note: x and y reversed since images have swapped x and y axis.
+% end
 
+% Loop to generate separate plots
+for i = 1:k
+    jv = find(idx==i);
+    figure(i)
+    imshow(A); hold on;
+    plot(y_coords(jv), x_coords(jv),'r.') % Note: x and y reversed since images have swapped x and y axis.
+    title("Cluster " + i)
+%     temp=['bengal_knn2_',num2str(i),'.png'];
+%     saveas(gca,temp);
+    hold on
+end
 
 
 
