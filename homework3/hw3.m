@@ -101,7 +101,7 @@ legend('FFT','naive','Symmetric');
 xlabel('n');
 ylabel('CPU time');
 
-%% Part 3: audio
+%% Part 3a: audio
 clear all; close all; clc
 
 [Y, FS]=audioread("hw3_terrible_sound_with_hidden_message.ogg.");
@@ -114,9 +114,26 @@ I = find(abs(yhat)>18);
 yhat(I) = 0;
 
 goodsound = ifft(yhat);
+% Numerics is fun 
+
+%% Part 3b: large problems and DFT
+clear all; close all; clc
 
 
+[Y, FS]=audioread("hw3_terrible_sound_with_hidden_message.ogg.");
 
+F = dftmtx(length(Y));
+
+yhat = F*Y;
+
+%% Part 4
+clear all; close all; clc
+% Compute a semiseparable matrix of size n times n
+n=500;
+randn('seed',0);
+v=randn(n,1);
+D=diag(randn(n,1));
+A=v*v'+D;
 
 
 
