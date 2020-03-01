@@ -136,6 +136,8 @@ D=diag(randn(n,1));
 A=v*v'+D;
 
 
+    
+
 
 
 

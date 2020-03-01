@@ -13,22 +13,7 @@ disp('Computed tree');
 b=zeros(n,1);
 x=randn(n,1);
 tic; % Start timing here since the building of the tree is not optimized
-for tau=1:length(node_index_vector)
-    Itau=node_index_vector{tau};
-    if (length(Itau)== 1 )
-        b(Itau)=b(Itau)+A(Itau,?? )*x(??);
-    else
-        child1=child_index(tau).child1_number;
-        child2=child_index(tau).child2_number;
-        Isigma1=node_index_vector{child1};
-        Isigma2=node_index_vector{child2};
 
-
-        block1_add=A(Isigma1,??)*x(Isigma2));
-        block2_add=??*x(??);
-        b(Itau)=b(Itau)+[block1_add;block2_add];
-    end
-end
 tt1=toc;
 
 disp('completed structured matvec');
